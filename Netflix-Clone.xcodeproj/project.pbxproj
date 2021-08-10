@@ -99,7 +99,6 @@
 				61FEE7D226C11AD8009D5478 /* Views */,
 				61FEE7D326C11AE2009D5478 /* ViewModel */,
 				61FEE7D426C11AEA009D5478 /* Models */,
-				61FEE7D626C11BA3009D5478 /* GlobleHelpers.swift */,
 				61FEE7BE26C11726009D5478 /* Assets.xcassets */,
 				61FEE7C326C11726009D5478 /* Info.plist */,
 				61FEE7C026C11726009D5478 /* Preview Content */,
@@ -135,6 +134,7 @@
 		61FEE7D426C11AEA009D5478 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				61FEE7D626C11BA3009D5478 /* GlobleHelpers.swift */,
 				61FEE7CE26C11A7F009D5478 /* Movie.swift */,
 			);
 			path = Models;

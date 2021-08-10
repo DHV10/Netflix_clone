@@ -45,6 +45,7 @@ struct TopMoviePreview: View {
                             }
                             
                         }
+                        .padding(5)
                         
                     }
                 }

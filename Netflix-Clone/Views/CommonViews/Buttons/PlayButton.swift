@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct WhiteButton: View {
+struct PlayButton: View {
     var imageName: String
     var text: String
+    var backgroundColor: Color = Color.white
+    
     
     var action: () -> Void
     var body: some View {
@@ -28,8 +30,8 @@ struct WhiteButton: View {
                 
             }
             .padding(.vertical, 6)
-            .foregroundColor(.black )
-            .background(Color.white)
+            .foregroundColor(backgroundColor == .white ? .black : .white)
+            .background(backgroundColor)
             .cornerRadius(5)
         })
         
@@ -38,7 +40,7 @@ struct WhiteButton: View {
 
 struct WhiteButton_Previews: PreviewProvider {
     static var previews: some View {
-        WhiteButton(imageName: "play.fill", text: "Play") {
+        PlayButton(imageName: "play.fill", text: "Play") {
             //
         }
         .preferredColorScheme(.dark)

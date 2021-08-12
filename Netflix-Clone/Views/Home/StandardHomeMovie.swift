@@ -14,6 +14,7 @@ struct StandardHomeMovie: View {
         KFImage(movie.thumnailURL)
             .resizable()
             .scaledToFill()
+            .cornerRadius(10)
     }
 }
 

@@ -8,6 +8,25 @@
 import Foundation
 import SwiftUI
 
+let exampleVideoURL = URL(string: "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4")!
+
+let exampleImageURL = URL(string: "https://picsum.photos/300/104")!
+let exampleImageURL2 = URL(string: "https://picsum.photos/300/105")!
+let exampleImageURL3 = URL(string: "https://picsum.photos/300/106")!
+
+var ramdomExampleImageURL: URL {
+    return [exampleImageURL, exampleImageURL2, exampleImageURL3].randomElement() ?? exampleImageURL
+    
+}
+
+let exampleTrailer1 = Trailer(name: "Season3 Trailer", videoURL: exampleVideoURL, thumbnailImageURL: exampleImageURL)
+
+let exampleTrailer2 = Trailer(name: "The Batman Trailer", videoURL: exampleVideoURL, thumbnailImageURL: exampleImageURL)
+
+let exampleTrailer3 = Trailer(name: "The Joker Trailer", videoURL: exampleVideoURL, thumbnailImageURL: exampleImageURL)
+
+let exampleTrailers: [Trailer] = [exampleTrailer1, exampleTrailer2, exampleTrailer3 ]
+
 let exampleMovie = Movie(
     id: UUID().uuidString,
     name: "DARK",
@@ -18,7 +37,9 @@ let exampleMovie = Movie(
     defaultEpisodeInfo: exampleEpisodeInfo1,
     creators:"DHV, Jokers, Batman",
     cast:"DHV, Superman, Harley Quin, Songoku",
-    promotionHeadline: "Coming soon")
+    moreLikeThisMovie: [exampleMovie5, exampleMovie4, exampleMovie3, exampleMovie2, exampleMovie1, exampleMovie6],
+    promotionHeadline: "Coming soon",
+    trailers: exampleTrailers)
 
 let exampleMovie1 = Movie(
     id: UUID().uuidString,
@@ -30,7 +51,9 @@ let exampleMovie1 = Movie(
     numberOfSeasons: 2,
     defaultEpisodeInfo: exampleEpisodeInfo1,
     creators:"DHV, Jokers, Batman",
-    cast:"DHV, Superman, Harley Quin, Songoku")
+    cast:"DHV, Superman, Harley Quin, Songoku",
+    moreLikeThisMovie: [],
+    trailers: exampleTrailers)
 
 let exampleMovie2 = Movie(
     id: UUID().uuidString,
@@ -42,7 +65,9 @@ let exampleMovie2 = Movie(
     defaultEpisodeInfo: exampleEpisodeInfo1,
     creators:"DHV, Jokers, Batman",
     cast:"DHV, Superman, Harley Quin, Songoku",
-    promotionHeadline: "Watch season 3")
+    moreLikeThisMovie: [],
+    promotionHeadline: "Watch season 3",
+    trailers: exampleTrailers)
 
 let exampleMovie3 = Movie(
     id: UUID().uuidString,
@@ -53,7 +78,10 @@ let exampleMovie3 = Movie(
     numberOfSeasons: 3,
     defaultEpisodeInfo: exampleEpisodeInfo1,
     creators:"DHV, Jokers, Batman",
-    cast:"DHV, Superman, Harley Quin, Songoku")
+    cast:"DHV, Superman, Harley Quin, Songoku",
+    moreLikeThisMovie: [],
+    trailers: exampleTrailers)
+
 
 let exampleMovie4 = Movie(
     id: UUID().uuidString,
@@ -64,7 +92,9 @@ let exampleMovie4 = Movie(
     numberOfSeasons: 4,
     defaultEpisodeInfo: exampleEpisodeInfo1,
     creators:"DHV, Jokers, Batman",
-    cast:"DHV, Superman, Harley Quin, Songoku")
+    cast:"DHV, Superman, Harley Quin, Songoku",
+    moreLikeThisMovie: [],
+    trailers: exampleTrailers)
 
 let exampleMovie5 = Movie(
     id: UUID().uuidString,
@@ -75,9 +105,26 @@ let exampleMovie5 = Movie(
     numberOfSeasons: 5,
     defaultEpisodeInfo: exampleEpisodeInfo1,
     creators:"DHV, Jokers, Batman",
-    cast:"DHV, Superman, Harley Quin, Songoku")
+    cast:"DHV, Superman, Harley Quin, Songoku",
+    moreLikeThisMovie: [],
+    trailers: exampleTrailers)
+let exampleMovie6 = Movie(
+    id: UUID().uuidString,
+    name: "After Life",
+    thumnailURL: URL(string: "https://picsum.photos/200/305")!,
+    categories: ["Dytopian", "Exciting", "Sci-Fi TV"],
+    year: 2020, rating: "TV-MA",
+    numberOfSeasons: 5,
+    defaultEpisodeInfo: exampleEpisodeInfo1,
+    creators:"DHV, Jokers, Batman",
+    cast:"DHV, Superman, Harley Quin, Songoku",
+    moreLikeThisMovie: [],
+    trailers: exampleTrailers)
 
-let exampleMovies = [exampleMovie, exampleMovie1, exampleMovie2, exampleMovie3, exampleMovie4, exampleMovie5]
+var exampleMovies:[Movie] {
+    [exampleMovie5, exampleMovie4, exampleMovie3, exampleMovie2, exampleMovie1, exampleMovie].shuffled()
+}
+
 
 let exampleEpisodeInfo1 = CurrentEpisodeInfo(episodeName: "The Batman", description: "With sequels and a spin-off film, this movie is a modern remake that follows a motley crew of skilled but quirky “professionals” in a fun, twisting heist adventure. ", season: 2, episode: 1)
 

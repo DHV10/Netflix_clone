@@ -19,7 +19,7 @@ struct EpisodesView: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 14) {
             HStack {
                 Button(action: {
                     showSeasonPicker = true
@@ -34,7 +34,7 @@ struct EpisodesView: View {
                 Spacer()
             }
             
-            ForEach(getEpisodes(forSeason: 1)) { episode in
+            ForEach(getEpisodes(forSeason: selectedSeason)) { episode in
                 VStack(alignment: .leading) {
                     HStack{
                         VideoPreviewImage(imageURL: episode.thumbnailURL, videoURL: episode.videoURL)

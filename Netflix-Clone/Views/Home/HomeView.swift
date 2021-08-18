@@ -9,7 +9,17 @@ import SwiftUI
 
 struct HomeView: View {
     var vm: HomeVM = HomeVM()
+    
     let screen = UIScreen.main.bounds
+    
+    @State private var movieDetailToShow: Movie? = nil
+    
+    @State private var topRowSelection: HomeTopRow = .home
+    @State private var homeGenre: HomeGenre = .AllGenres
+    
+    @State private var showTopRowSelection = false
+    @State private var showGenreSelection = false
+    
     var body: some View {
         ZStack {
             //background
@@ -18,39 +28,113 @@ struct HomeView: View {
             ScrollView(showsIndicators:false) {
                 LazyVStack {
                     
-                    TopRowButtons()
+                    TopRowButtons(topRowSelection: $topRowSelection, homeGenre: $homeGenre, showTopRowSelection: $showTopRowSelection, showGenreSelection: $showGenreSelection)
                  
                     TopMoviePreview(movie: exampleMovie2)
                         .frame(width: screen.width)
                         .padding(.top, -110)
                         .zIndex(-1)
                     
-                    ForEach(vm.allCategories, id: \.self) { category  in
-                        //a category
-                        VStack {
-                            //category name
-                            HStack {
-                                Text(category)
-                                    .font(.title3)
-                                    .bold()
-                                Spacer()
-                            }
-                           //MARK: - //list movie in a category
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                LazyHStack {
-                                    ForEach(vm.getMovie(forCat: category)) { movie in
-                                        StandardHomeMovie(movie: movie )
-                                            .frame(width: 100, height: 200, alignment: .center)
-                                            .padding(.horizontal, 20)
-                                    }
-                                }
-                            }
-                        }
-                        
-                    }
+                    HomeStack(vm: vm, topRowSelection: topRowSelection, selectedGenre: homeGenre, movieDetailToShow: $movieDetailToShow)
                 }
             }
-           
+           //
+            if movieDetailToShow != nil {
+                MovieDetail(movie: movieDetailToShow!, movieDetailToShow: $movieDetailToShow)
+                    .animation(.easeIn)
+                    .transition(.opacity)
+            }
+            
+            if showTopRowSelection {
+                Group {
+                    Color.black.opacity(0.9)
+                    
+                    VStack(spacing: 40) {
+                        Spacer()
+                        ForEach(HomeTopRow.allCases, id: \.self){ topRow in
+                            
+                            Button(action: {
+                                topRowSelection = topRow
+                                showTopRowSelection = false
+                            }, label: {
+                                if topRow == topRowSelection {
+                                    Text("\(topRow.rawValue)")
+                                        .bold()
+                                } else {
+                                    Text("\(topRow.rawValue)")
+                                        .foregroundColor(.gray)
+                                }
+                            })
+                       
+                        }
+                        
+                        Spacer()
+                        Button(action: {
+                            showTopRowSelection = false
+                        }, label: {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundColor(.white)
+                                .font(.system(size: 40))
+                                .scaleEffect(x: 1.1)
+                        })
+                        .padding(.bottom, 30)
+                    }
+                    
+                }
+                .edgesIgnoringSafeArea(.all)
+                .font(.title2)
+            }
+            
+            if showGenreSelection {
+                Group {
+                    Color.black.opacity(0.9)
+                    
+                  
+                        VStack(spacing: 40) {
+                         
+                            Spacer()
+                            
+                            ScrollView {
+                                ForEach(vm.allGenre, id: \.self){ genre in
+                                    
+                                    Button(action: {
+                                        homeGenre = genre
+                                        showGenreSelection = false
+                                    }, label: {
+                                        if genre == homeGenre {
+                                            Text("\(genre.rawValue)")
+                                                .bold()
+                                        } else {
+                                            Text("\(genre.rawValue)")
+                                                .foregroundColor(.gray)
+                                        }
+                                    })
+                                    .padding(.bottom , 40)
+                               
+                                }
+                            }
+                            
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                showGenreSelection = false
+                            }, label: {
+                                Image(systemName: "x.circle.fill")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 40))
+                                    .scaleEffect(x: 1.1)
+                            })
+                            .padding(.bottom, 30)
+                        }
+                    
+                    
+                    
+                }
+                .edgesIgnoringSafeArea(.all)
+                .font(.title2)
+            }
+            
         }
         .foregroundColor(.white)
     }
@@ -63,50 +147,128 @@ struct HomeView_Previews: PreviewProvider {
 }
 
 struct TopRowButtons: View {
+    @Binding var topRowSelection: HomeTopRow
+    @Binding var homeGenre: HomeGenre
+    
+    @Binding var showTopRowSelection: Bool
+    @Binding var showGenreSelection: Bool
     var body: some View {
-        HStack {
-            Spacer()
-            Button(action: {
-                //
-            }, label: {
-                Image("netflix_logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60)
-            })
-            .buttonStyle(PlainButtonStyle())
+        switch topRowSelection {
+        case .home:
+            HStack {
+                Spacer()
+                Button(action: {
+                    topRowSelection = .home
+                }, label: {
+                    Image("netflix_logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60)
+                })
+                .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+                Button(action: {
+                    topRowSelection = .tvShows
+                }, label: {
+                    Text("TV Shows")
+                        .font(.title3)
+                })
+                .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+                Button(action: {
+                    topRowSelection = .movies
+                }, label: {
+                    Text("Movies")
+                        .font(.title3)
+                })
+                .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+                Button(action: {
+                    topRowSelection = .myList
+                }, label: {
+                    Text("My List")
+                        .font(.title3)
+                })
+                .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+            }
+    //        .background(Color.black)
+            .padding(.leading, 10)
+            .padding(.trailing, 30)
             
-            Spacer()
-            Button(action: {
-                //
-            }, label: {
-                Text("TV Show")
-                    .font(.title3)
-            })
-            .buttonStyle(PlainButtonStyle())
-            
-            Spacer()
-            Button(action: {
-                //
-            }, label: {
-                Text("Movies")
-                    .font(.title3)
-            })
-            .buttonStyle(PlainButtonStyle())
-            
-            Spacer()
-            Button(action: {
-                //
-            }, label: {
-                Text("My List")
-                    .font(.title3)
-            })
-            .buttonStyle(PlainButtonStyle())
-            
-            Spacer()
+        case .tvShows, .movies, .myList:
+            HStack(spacing:20) {
+               
+                Button(action: {
+                    topRowSelection = .home
+                }, label: {
+                    Image("netflix_logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50)
+                })
+                .buttonStyle(PlainButtonStyle())
+                
+               
+                HStack(spacing: 20) {
+                    Button(action: {
+                        showTopRowSelection = true
+                    }, label: {
+                        Text(topRowSelection.rawValue)
+                            .font(.title2)
+                        
+                        Image(systemName: "triangle.fill")
+                            .font(.system(size: 10))
+                            .rotationEffect(.degrees(180), anchor: .center)
+                    })
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                        showGenreSelection = true
+                    }, label: {
+                        Text(homeGenre.rawValue)
+                            .font(.system(size: 14))
+                        
+                        Image(systemName: "triangle.fill")
+                            .font(.system(size: 8))
+                            .rotationEffect(.degrees(180), anchor: .center)
+                    })
+                    .buttonStyle(PlainButtonStyle())
+                }
+                
+                
+             
+                
+                Spacer()
+             
+            }
+    //        .background(Color.black)
+            .padding(.leading, 20)
+            .padding(.trailing, 30)
+        
         }
-//        .background(Color.black)
-        .padding(.leading, 10)
-        .padding(.trailing, 30)
+        
+
     }
 }
+
+enum HomeTopRow: String, CaseIterable {
+    case home = "Home"
+    case tvShows = "TV Shows"
+    case movies = "Movies"
+    case myList = "My List"
+}
+
+enum HomeGenre: String {
+    case AllGenres
+    case Action
+    case Comedy
+    case Horror
+    case Thriller
+    case Document
+}
+

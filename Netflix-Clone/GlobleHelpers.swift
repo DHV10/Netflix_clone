@@ -41,14 +41,14 @@ let episode3 = Episode(name: "Ghosts",
                          length: 56,
                          videoURL: exampleVideoURL)
 
-let episode4 = Episode(name: "Beginnings and Endings",
+let episode4 = Episode(name: "Dark Matter",
                          season: 2,
                          episodeNumber: 1,
                          thumbnailImageURLString: "https://picsum.photos/300/109",
                          description: "Six months after the disappearances, the police form a task force. In 2052, Jonas learns that most of Winden perished in an apocalyptic event.",
                          length: 53,
                          videoURL: exampleVideoURL)
-let episode5 = Episode(name: "Dark Matter",
+let episode5 = Episode(name: "Beginnings and Endings",
                          season: 2,
                          episodeNumber: 2,
                          thumbnailImageURLString: "https://picsum.photos/300/108",
@@ -58,14 +58,14 @@ let episode5 = Episode(name: "Dark Matter",
 let episode6 = Episode(name: "Ghosts",
                          season: 2,
                          episodeNumber: 3,
-                         thumbnailImageURLString: "https://picsum.photos/300/107",
+                         thumbnailImageURLString: "https://picsum.photos/300/111",
                          description: "In 1954, a missing Helge returns, but he'll only speak to Noah. In 1987, Claudia brings the time machine to Tannhaus, and Egon questions Ulrich again.",
                          length: 56,
                          videoURL: exampleVideoURL)
 
 
 
-var allExampleEpisodes = [episode1, episode2, episode3, episode4, episode5, episode6]
+var allExampleEpisodes = [episode1, episode2, episode3, episode4, episode5]
 
 let exampleTrailer1 = Trailer(name: "Season3 Trailer", videoURL: exampleVideoURL, thumbnailImageURL: exampleImageURL)
 
@@ -81,7 +81,7 @@ let exampleMovie = Movie(
     thumnailURL: URL(string: "https://picsum.photos/200/300")!,
     categories: ["Dytopian", "Exciting", "Sci-Fi TV"],
     year: 2020, rating: "TV-MA",
-    numberOfSeasons: 1,
+    numberOfSeasons: 2,
     defaultEpisodeInfo: exampleEpisodeInfo1,
     creators:"DHV, Jokers, Batman",
     cast:"DHV, Superman, Harley Quin, Songoku",
@@ -172,7 +172,7 @@ let exampleMovie6 = Movie(
     trailers: exampleTrailers)
 
 var exampleMovies:[Movie] {
-    [exampleMovie5, exampleMovie4, exampleMovie3, exampleMovie2, exampleMovie1, exampleMovie1].shuffled()
+    [exampleMovie5, exampleMovie4, exampleMovie3, exampleMovie2, exampleMovie1, exampleMovie].shuffled()
 }
 
 

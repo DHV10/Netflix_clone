@@ -14,6 +14,8 @@ struct MovieDetail: View {
     @State private var showSeasonPicker = false
     @State private var selectedSeason = 1
     
+    @Binding var movieDetailToShow: Movie?
+    
     var body: some View {
         ZStack {
             Color.black
@@ -25,7 +27,7 @@ struct MovieDetail: View {
                         
                         Spacer()
                         Button(action: {
-                            
+                            movieDetailToShow = nil
                         }, label: {
                             Image(systemName: "xmark.circle")
                                 .font(.system(size: 28))
@@ -38,7 +40,7 @@ struct MovieDetail: View {
                         VStack {
                             
                             StandardHomeMovie(movie: movie)
-                                .frame(width: screen.width/3)
+                                .frame(width: screen.width/2.5,  height: 300)
                             
                             MovieInfoSubHeadline(movie: movie)
                             
@@ -98,9 +100,9 @@ struct MovieDetail: View {
                                     self.showSeasonPicker = false
                                 }, label: {
                                     Text("Season \(season + 1)")
-                                        .foregroundColor(selectedSeason == season ? .white : .gray)
+                                        .foregroundColor(selectedSeason == season + 1 ? .white : .gray)
                                         .bold()
-                                        .font(selectedSeason == season ? .title : .title2)
+                                        .font(selectedSeason == season + 1 ? .title : .title2)
                                 })
                                 
                             }
@@ -129,7 +131,7 @@ struct MovieDetail: View {
 
 struct MovieDetail_Previews: PreviewProvider {
     static var previews: some View {
-        MovieDetail(movie: exampleMovie)
+        MovieDetail(movie: exampleMovie, movieDetailToShow: .constant(nil))
     }
 }
 

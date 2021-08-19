@@ -11,10 +11,14 @@ import KingfisherSwiftUI
 struct StandardHomeMovie: View {
     var movie: Movie
     var body: some View {
-        KFImage(movie.thumnailURL)
-            .resizable()
-            .scaledToFill()
-            .cornerRadius(10)
+        GeometryReader { proxy in
+            KFImage(movie.thumnailURL)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: proxy.size.width, height: proxy.size.height)
+                .clipped()
+                .cornerRadius(8)
+        }
     }
 }
 

@@ -17,7 +17,7 @@ struct SearchBarView: View {
         
         ZStack(alignment: .leading) {
             Color.graySearchBackground
-                .frame(width: 270, height:  36)
+                .frame(width: 280, height:  36)
                 .cornerRadius(5)
             HStack {
                 Image(systemName: "magnifyingglass")
@@ -25,7 +25,7 @@ struct SearchBarView: View {
                     .padding(.leading, 10)
                 TextField("Search", text: $text)
                     .padding(7)
-                    .padding(.leading, -18)
+                    .padding(.leading, -7)
                     .padding(.horizontal,10)
                     .background(Color.graySearchBackground)			
                     .cornerRadius(5)
@@ -33,6 +33,7 @@ struct SearchBarView: View {
                     .onTapGesture(perform: {
                         isEditing = true
                     })
+                    .animation(.default)
                 if !text.isEmpty {
                     
                     if isLoading {
@@ -46,7 +47,7 @@ struct SearchBarView: View {
                                 }
                                 .frame(width: 35, height: 35)
                         })
-                        .padding(.trailing, 18)
+                        .padding(.trailing, 8)
                         
                     }else {
                         Button(action: {
@@ -56,7 +57,7 @@ struct SearchBarView: View {
                                 .foregroundColor(.graySearchText)
                                 .frame(width: 35, height: 35)
                         })
-                        .padding(.trailing, 18)
+                        .padding(.trailing, 8)
                         
                     }
                     
@@ -73,6 +74,8 @@ struct SearchBarView: View {
                             .foregroundColor(Color.white)
                     })
                     .padding(.trailing, 15)
+                    .transition(.move(edge: .trailing))
+                    .animation(.default)
                 }
                 
                
@@ -84,7 +87,7 @@ struct SearchBarView: View {
 
 struct SearchBarView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBarView(text: .constant(""), isLoading: .constant(false))
+        SearchBarView(text: .constant(""), isLoading: .constant(true))
             .preferredColorScheme(.dark)
     }
 }

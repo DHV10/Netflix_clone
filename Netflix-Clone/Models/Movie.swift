@@ -23,6 +23,7 @@ struct Movie: Identifiable{
     
     //Personalzation
     var currentEpisode: CurrentEpisodeInfo?
+    var accentColor:Color = .white
     
     var defaultEpisodeInfo: CurrentEpisodeInfo
     var creators: String
@@ -39,7 +40,7 @@ struct Movie: Identifiable{
     
     var trailers: [Trailer]
     
-    var previewImageName: String?
+    var previewImageName: String
     var previewVideoURL: URL?
     
     var numberOfSeasonDisplay : String {

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-let exampleVideoURL = URL(string: "https://www.radiantmediaplayer.com/media/big-buck-bunny-360p.mp4")!
+let exampleVideoURL = URL(string: "https://codewithchris.github.io/learningJSON/Learn%20Swift%20for%20Beginners%20Lesson%201%20-%20Variables%20(Swift%205%20compatible)-2OZ07fklur8.mp4")!
 
 let exampleImageURL = URL(string: "https://picsum.photos/300/104")!
 let exampleImageURL2 = URL(string: "https://picsum.photos/300/105")!
@@ -82,13 +82,17 @@ let exampleMovie = Movie(
     categories: ["Dytopian", "Exciting", "Sci-Fi TV"],
     year: 2020, rating: "TV-MA",
     numberOfSeasons: 2,
+    accentColor: Color.green,
     defaultEpisodeInfo: exampleEpisodeInfo1,
     creators:"DHV, Jokers, Batman",
     cast:"DHV, Superman, Harley Quin, Songoku",
     moreLikeThisMovie: [exampleMovie5, exampleMovie4, exampleMovie3, exampleMovie2, exampleMovie1, exampleMovie6],
     episodes: allExampleEpisodes,
     promotionHeadline: "Coming soon",
-    trailers: exampleTrailers)
+    trailers: exampleTrailers,
+    previewImageName: "darkPreview",
+    previewVideoURL: exampleVideoURL)
+    
 
 let exampleMovie1 = Movie(
     id: UUID().uuidString,
@@ -102,7 +106,9 @@ let exampleMovie1 = Movie(
     creators:"DHV, Jokers, Batman",
     cast:"DHV, Superman, Harley Quin, Songoku",
     moreLikeThisMovie: [],
-    trailers: exampleTrailers)
+    trailers: exampleTrailers,
+    previewImageName: "ozarkPreview",
+    previewVideoURL: exampleVideoURL)
 
 let exampleMovie2 = Movie(
     id: UUID().uuidString,
@@ -116,7 +122,9 @@ let exampleMovie2 = Movie(
     cast:"DHV, Superman, Harley Quin, Songoku",
     moreLikeThisMovie: [],
     promotionHeadline: "Watch season 3",
-    trailers: exampleTrailers)
+    trailers: exampleTrailers,
+    previewImageName: "dirtyJohnPreview",
+    previewVideoURL: exampleVideoURL)
 
 let exampleMovie3 = Movie(
     id: UUID().uuidString,
@@ -130,7 +138,9 @@ let exampleMovie3 = Movie(
     cast:"DHV, Superman, Harley Quin, Songoku",
     moreLikeThisMovie: [],
     episodes: allExampleEpisodes,
-    trailers: exampleTrailers)
+    trailers: exampleTrailers,
+    previewImageName: "travelersPreview",
+    previewVideoURL: exampleVideoURL)
 
 
 let exampleMovie4 = Movie(
@@ -144,7 +154,9 @@ let exampleMovie4 = Movie(
     creators:"DHV, Jokers, Batman",
     cast:"DHV, Superman, Harley Quin, Songoku",
     moreLikeThisMovie: [],
-    trailers: exampleTrailers)
+    trailers: exampleTrailers,
+    previewImageName: "arrestedDevPreview",
+    previewVideoURL: exampleVideoURL)
 
 let exampleMovie5 = Movie(
     id: UUID().uuidString,
@@ -157,7 +169,10 @@ let exampleMovie5 = Movie(
     creators:"DHV, Jokers, Batman",
     cast:"DHV, Superman, Harley Quin, Songoku",
     moreLikeThisMovie: [],
-    trailers: exampleTrailers)
+    trailers: exampleTrailers,
+    previewImageName: "whiteLinesPreview",
+    previewVideoURL: exampleVideoURL)
+
 let exampleMovie6 = Movie(
     id: UUID().uuidString,
     name: "After Life",
@@ -169,7 +184,9 @@ let exampleMovie6 = Movie(
     creators:"DHV, Jokers, Batman",
     cast:"DHV, Superman, Harley Quin, Songoku",
     moreLikeThisMovie: [],
-    trailers: exampleTrailers)
+    trailers: exampleTrailers,
+    previewImageName: "darkPreview",
+    previewVideoURL: exampleVideoURL)
 
 var exampleMovies:[Movie] {
     [exampleMovie5, exampleMovie4, exampleMovie3, exampleMovie2, exampleMovie1, exampleMovie].shuffled()
@@ -199,5 +216,35 @@ extension String {
 extension View {
     func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
+extension View {
+    
+    /// Hide or show the view based on a boolean value.
+    ///
+    /// Example for visibility:
+    /// ```
+    /// Text("Label")
+    ///     .isHidden(true)
+    /// ```
+    ///
+    /// Example for complete removal:
+    /// ```
+    /// Text("Label")
+    ///     .isHidden(true, remove: true)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - hidden: Set to `false` to show the view. Set to `true` to hide the view.
+    ///   - remove: Boolean value indicating whether or not to remove the view.
+    @ViewBuilder func isHidden(_ hidden: Bool, remove: Bool = false) -> some View {
+        if hidden {
+            if !remove {
+                self.hidden()
+            }
+        } else {
+            self
+        }
     }
 }
